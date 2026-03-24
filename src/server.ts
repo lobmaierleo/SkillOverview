@@ -1,7 +1,7 @@
 import { join } from "path";
 import { handleSkills, handleSkillDetail, handleSkillReveal } from "./api/skills.ts";
 import { handleTools } from "./api/tools.ts";
-import { handleGetProjects, handleAddProject, handleDeleteProject } from "./api/projects.ts";
+import { handleGetProjects, handleAddProject, handleDeleteProject, handlePickFolder } from "./api/projects.ts";
 import { handleStartScan, handleScanStatus } from "./api/scan.ts";
 import { handleStats } from "./api/stats.ts";
 
@@ -32,6 +32,7 @@ async function handleApi(req: Request, url: URL): Promise<Response> {
 
   // Projects
   if (path === "/api/projects" && method === "GET") return handleGetProjects();
+  if (path === "/api/projects/pick-folder" && method === "GET") return handlePickFolder();
   if (path === "/api/projects" && method === "POST") return handleAddProject(req);
 
   const projectMatch = path.match(/^\/api\/projects\/(\d+)$/);

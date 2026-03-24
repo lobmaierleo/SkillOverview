@@ -504,6 +504,11 @@ function Projects({ onUpdate }) {
     if (onUpdate) onUpdate();
   };
 
+  const handlePickFolder = async () => {
+    const data = await api.get('/projects/pick-folder');
+    if (data.path) setNewPath(data.path);
+  };
+
   const handleRemove = async (id) => {
     await api.del(`/projects/${id}`);
     fetchProjects();
@@ -568,16 +573,22 @@ function Projects({ onUpdate }) {
         <div class="modal-overlay" onclick=${(e) => e.target === e.currentTarget && setShowModal(false)}>
           <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <h2 class="modal-title" id="modal-title">Projektordner hinzufügen</h2>
-            <label>
-              <span class="detail-meta-label" style="display: block; margin-bottom: 8px;">Pfad zum Projektordner</span>
-              <input class="input"
-                     type="text"
-                     placeholder="/Users/name/Projects/mein-projekt"
-                     value=${newPath}
-                     oninput=${(e) => setNewPath(e.target.value)}
-                     onkeydown=${(e) => e.key === 'Enter' && handleAdd()}
-                     autofocus />
-            </label>
+            <div>
+              <span class="detail-meta-label" style="display: block; margin-bottom: 8px;">Projektordner</span>
+              <div style="display: flex; gap: 8px;">
+                <input class="input"
+                       type="text"
+                       placeholder="/Users/name/Projects/mein-projekt"
+                       value=${newPath}
+                       oninput=${(e) => setNewPath(e.target.value)}
+                       onkeydown=${(e) => e.key === 'Enter' && handleAdd()}
+                       autofocus
+                       style="flex: 1;" />
+                <button class="btn" onclick=${handlePickFolder} type="button" title="Ordner auswählen">
+                  ${icons.folder}
+                </button>
+              </div>
+            </div>
             <div class="modal-actions">
               <button class="btn" onclick=${() => setShowModal(false)}>Abbrechen</button>
               <button class="btn btn-primary" onclick=${handleAdd} disabled=${!newPath.trim()}>

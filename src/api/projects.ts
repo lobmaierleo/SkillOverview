@@ -39,3 +39,20 @@ export async function handleDeleteProject(id: string): Promise<Response> {
   removeProject(Number(id));
   return Response.json({ success: true });
 }
+
+export async function handlePickFolder(): Promise<Response> {
+  try {
+    const proc = Bun.spawnSync([
+      "osascript", "-e",
+      'POSIX path of (choose folder with prompt "Projektordner auswählen")'
+    ]);
+    if (proc.exitCode !== 0) {
+      // User cancelled
+      return Response.json({ cancelled: true });
+    }
+    const path = proc.stdout.toString().trim().replace(/\/$/, "");
+    return Response.json({ path });
+  } catch {
+    return Response.json({ error: "Folder picker not available" }, { status: 500 });
+  }
+}
