@@ -18,7 +18,7 @@
   "keywords": ["ai", "skills", "prompts", "rules", "claude", "cursor", "copilot", "gemini"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/leolobmaier/SkillOverview.git"
+    "url": "https://github.com/lobmaierleo/SkillOverview.git"
   },
   "files": [
     "src/**/*",

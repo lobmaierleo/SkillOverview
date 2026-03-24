@@ -20,7 +20,7 @@ Local web app that discovers and displays AI coding tool skills, prompts, and ru
 ### Homebrew (macOS)
 
 ```bash
-brew install leolobmaier/tap/skill-vault
+brew install lobmaierleo/tap/skill-vault
 ```
 
 ### npx (requires Bun)
